@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<User> getAllUsers();
+    List<User> getAllActiveUsers();
 
     boolean saveUser(UserRequest userRequest);
 

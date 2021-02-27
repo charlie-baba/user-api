@@ -1,5 +1,6 @@
 package com.arc.userapi.services.impl;
 
+import com.arc.userapi.Enums.Status;
 import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.repository.UserRepository;
@@ -19,8 +20,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public List<User> getAllUsers() {
-        return null;
+    public List<User> getAllActiveUsers() {
+        return repository.findUsersNotInStatus(Status.Deactivated);
     }
 
     @Override

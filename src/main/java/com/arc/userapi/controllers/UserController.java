@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/users")
     @ResponseBody
     public List<User> getUsers(){
-        return userService.getAllUsers();
+        return userService.getAllActiveUsers();
     }
 
     @PostMapping("/user")
