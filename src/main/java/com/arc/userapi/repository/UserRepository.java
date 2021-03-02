@@ -1,6 +1,5 @@
 package com.arc.userapi.repository;
 
-import com.arc.userapi.Enums.Status;
 import com.arc.userapi.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +12,9 @@ import java.util.List;
  */
 public interface UserRepository extends JpaRepository<User, Long>  {
 
-    @Query("select u from User u where u.status <> :status")
-    List<User> findUsersNotInStatus(@Param("status") Status status);
+    @Query("select u from User u where u.status <> 'Deactivated'")
+    List<User> findAllActiveUsers();
+
+    @Query("select u from User u where u.email = :email and u.status <> 'Deactivated'")
+    User findUsersByEmail(@Param("email") String email);
 }

@@ -47,7 +47,7 @@ public class UserServiceTest {
                 Role.User, now, now, true, null, Status.Verified));
         users.add(new User(2L, "Mrs.", "Stacy", "Krimlin", "stacy@email.com", "+2348065368989", "",
                 Role.Admin, now, now, true, null, Status.Verified));
-        doReturn(users).when(mockRepository).findUsersNotInStatus(Status.Deactivated);
+        doReturn(users).when(mockRepository).findAllActiveUsers();
 
         //Act
         List<User> fetchedList = service.getAllActiveUsers();
@@ -68,7 +68,7 @@ public class UserServiceTest {
         //Assert
         Assertions.assertAll("Should add user to repository",
                 () -> Assert.assertEquals(response.getResponseCode(), "00"),
-                () -> Assert.assertEquals(mockRepository.findUsersNotInStatus(Status.Deactivated).size(), 1));
+                () -> Assert.assertEquals(mockRepository.findAllActiveUsers().size(), 1));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class UserServiceTest {
         Assertions.assertAll("Should update user in repository",
                 () -> Assert.assertEquals(response.getResponseCode(), "00"),
                 () -> Assert.assertEquals(service.findUserById(id).getFirstName(), "Frank"),
-                () -> Assert.assertEquals(mockRepository.findUsersNotInStatus(Status.Deactivated).size(), 1));
+                () -> Assert.assertEquals(mockRepository.findAllActiveUsers().size(), 1));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class UserServiceTest {
         List<User> users = new ArrayList<>();
         users.add(new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com", "+2348065368787", "",
                 Role.User, now, now, true, null, Status.Verified));
-        doReturn(users).when(mockRepository).findUsersNotInStatus(Status.Deactivated);
+        doReturn(users).when(mockRepository).findAllActiveUsers();
 
         //Act
         BaseResponse response = service.deactivateUser(1L);
@@ -104,6 +104,6 @@ public class UserServiceTest {
         //Assert
         Assertions.assertAll("Should add user to repository",
                 () -> Assert.assertEquals(response.getResponseCode(), "00"),
-                () -> Assert.assertEquals(mockRepository.findUsersNotInStatus(Status.Deactivated).size(), 0));
+                () -> Assert.assertEquals(mockRepository.findAllActiveUsers().size(), 0));
     }
 }

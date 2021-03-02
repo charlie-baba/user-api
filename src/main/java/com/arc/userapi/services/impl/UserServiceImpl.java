@@ -35,13 +35,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllActiveUsers() {
-        List<User> users = repository.findUsersNotInStatus(Status.Deactivated);
+        List<User> users = repository.findAllActiveUsers();
         users.stream().forEach(u -> u.setPassword(null));
         return users;
     }
 
     @Override
     public BaseResponse saveUser(UserRequest userRequest) {
+        if (repository.findUsersByEmail(userRequest.getEmail()) != null)
+            return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");
+
         User user = new User();
         BeanUtils.copyProperties(userRequest, user);
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));

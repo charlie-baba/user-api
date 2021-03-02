@@ -45,9 +45,10 @@ public class UserController {
             response.setResponseMessage(ErrorUtil.getResponseMessage(errors));
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
+
         try {
             response = userService.saveUser(userRequest);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println("Error while saving user"+ e.getMessage());
             return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -59,7 +60,7 @@ public class UserController {
                                      @PathVariable("id") Long id){
         try {
             BaseResponse response = userService.updateUser(id, userRequest);
-            return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println("Error while updating user"+ e.getMessage());
             return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
