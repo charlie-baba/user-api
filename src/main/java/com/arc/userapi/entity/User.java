@@ -1,6 +1,7 @@
 package com.arc.userapi.entity;
 
 import com.arc.userapi.Enums.Role;
+import com.arc.userapi.Enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,7 +27,7 @@ public class User extends BaseEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "mobile")
@@ -49,4 +50,23 @@ public class User extends BaseEntity {
 
     @Column(name = "is_verified")
     private boolean verified = false;
+
+    public User() { }
+
+    public User(Long id, String title, String firstName, String lastName, String email, String mobile, String password,
+                Role role, Date dateRegistered, Date dateVerified, boolean verified, Date dateDeactivated, Status status) {
+        this.setId(id);
+        this.title = title;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobile = mobile;
+        this.password = password;
+        this.role = role;
+        this.dateRegistered = dateRegistered;
+        this.dateVerified = dateVerified;
+        this.verified = verified;
+        this.setDateDeactivated(dateDeactivated);
+        this.setStatus(status);
+    }
 }

@@ -1,7 +1,9 @@
 package com.arc.userapi.controllers;
 
+import com.arc.userapi.Enums.ResponseCode;
 import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
+import com.arc.userapi.pojo.response.BaseResponse;
 import com.arc.userapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,33 +29,33 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity saveUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<BaseResponse> saveUser(@RequestBody UserRequest userRequest) {
         try {
-            boolean successful = userService.saveUser(userRequest);
-            return new ResponseEntity(HttpStatus.CREATED);
+            BaseResponse response = userService.saveUser(userRequest);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/user/{id}")
-    public ResponseEntity updateUser(@RequestBody UserRequest userRequest,
+    public ResponseEntity<BaseResponse> updateUser(@RequestBody UserRequest userRequest,
                                      @PathVariable("id") Long id){
         try {
-            boolean successful = userService.updateUser(id, userRequest);
-            return new ResponseEntity(HttpStatus.OK);
+            BaseResponse response = userService.updateUser(id, userRequest);
+            return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity deleteUser(@PathVariable("id") Long id){
+    public ResponseEntity<BaseResponse> deleteUser(@PathVariable("id") Long id){
         try {
-            boolean successful = userService.deactivateUser(id);
-            return new ResponseEntity(HttpStatus.OK);
+            BaseResponse response = userService.deactivateUser(id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
