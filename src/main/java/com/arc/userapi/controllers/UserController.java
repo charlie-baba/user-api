@@ -5,6 +5,7 @@ import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
 import com.arc.userapi.services.UserService;
+import com.sun.xml.bind.v2.runtime.output.SAXOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,7 @@ public class UserController {
             BaseResponse response = userService.saveUser(userRequest);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println("Error while saving user"+ e.getMessage());
             return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -45,6 +47,7 @@ public class UserController {
             BaseResponse response = userService.updateUser(id, userRequest);
             return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
         } catch (Exception e) {
+            System.out.println("Error while updating user"+ e.getMessage());
             return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

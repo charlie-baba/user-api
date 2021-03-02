@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse saveUser(UserRequest userRequest) {
         User user = new User();
-        BeanUtils.copyProperties(user, userRequest);
+        BeanUtils.copyProperties(userRequest, user);
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         user.setDateRegistered(new Date());
         user.setStatus(Status.Registered);

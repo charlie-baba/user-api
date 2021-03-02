@@ -28,6 +28,8 @@ public class UserRequest implements Serializable {
     private Role role;
     private boolean verified = false;
 
+    public UserRequest() {}
+
     public UserRequest(String title, String firstName, String lastName, String email, String mobile, String password, Role role, boolean verified) {
         this.title = title;
         this.firstName = firstName;
