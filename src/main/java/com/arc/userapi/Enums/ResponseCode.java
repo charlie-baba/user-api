@@ -9,6 +9,7 @@ import lombok.Getter;
 public enum ResponseCode {
 
     Success("00", "Successful"),
+    Not_Found("22", "Requested Resource Not Found"),
     Internal_Server_Error("ZZ", "Something went wrong. Please try again later."),
     ;
 
