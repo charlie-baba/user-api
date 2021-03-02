@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Charles on 27/02/2021
@@ -34,7 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllActiveUsers() {
-        return repository.findUsersNotInStatus(Status.Deactivated);
+        List<User> users = repository.findUsersNotInStatus(Status.Deactivated);
+        users.stream().forEach(u -> u.setPassword(null));
+        return users;
     }
 
     @Override

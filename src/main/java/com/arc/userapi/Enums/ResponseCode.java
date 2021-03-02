@@ -10,6 +10,7 @@ public enum ResponseCode {
 
     Success("00", "Successful"),
     Not_Found("22", "Requested Resource Not Found"),
+    Bad_Request("33", "Bad/Invalid Request"),
     Internal_Server_Error("ZZ", "Something went wrong. Please try again later."),
     ;
 

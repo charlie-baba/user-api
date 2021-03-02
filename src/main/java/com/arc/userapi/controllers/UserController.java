@@ -5,13 +5,20 @@ import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
 import com.arc.userapi.services.UserService;
-import com.sun.xml.bind.v2.runtime.output.SAXOutput;
+import com.arc.userapi.utils.ErrorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Charles on 27/02/2021
@@ -30,9 +37,16 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<BaseResponse> saveUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<BaseResponse> saveUser(@Valid @RequestBody UserRequest userRequest,
+                                                 Errors errors) {
+        BaseResponse response;
+        if(errors.hasErrors()) {
+            response = new BaseResponse(ResponseCode.Bad_Request);
+            response.setResponseMessage(ErrorUtil.getResponseMessage(errors));
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
         try {
-            BaseResponse response = userService.saveUser(userRequest);
+            response = userService.saveUser(userRequest);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println("Error while saving user"+ e.getMessage());
