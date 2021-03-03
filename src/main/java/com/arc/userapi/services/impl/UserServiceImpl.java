@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Charles on 27/02/2021
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findUserById(id);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BaseResponse saveUser(UserRequest userRequest) {
-        if (repository.findUsersByEmail(userRequest.getEmail()) != null)
+        if (repository.findUserByEmail(userRequest.getEmail()) != null)
             return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");
 
         User user = new User();
@@ -57,8 +56,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse updateUser(Long id, UserRequest userRequest) {
         User user = findUserById(id);
-        if (user == null){
+        if (user == null) {
             return new BaseResponse(ResponseCode.Not_Found);
+        }
+        User emailUser = repository.findUserByEmail(userRequest.getEmail());
+        if (emailUser != null && !emailUser.getId().equals(user.getId())) {
+            return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");
         }
 
         user.setFirstName(userRequest.getFirstName());

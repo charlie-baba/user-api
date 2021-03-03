@@ -12,9 +12,12 @@ import java.util.List;
  */
 public interface UserRepository extends JpaRepository<User, Long>  {
 
+    @Query("select u from User u where u.id = :id and u.status <> 'Deactivated'")
+    User findUserById(Long id);
+
     @Query("select u from User u where u.status <> 'Deactivated'")
     List<User> findAllActiveUsers();
 
     @Query("select u from User u where u.email = :email and u.status <> 'Deactivated'")
-    User findUsersByEmail(@Param("email") String email);
+    User findUserByEmail(@Param("email") String email);
 }
