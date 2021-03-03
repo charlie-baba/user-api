@@ -42,6 +42,8 @@ public class UserRequest implements Serializable {
 
     private boolean verified = false;
 
+    private boolean deactivated = false;
+
     public UserRequest() {}
 
     public UserRequest(String title, String firstName, String lastName, String email, String mobile, String password, Role role, boolean verified) {

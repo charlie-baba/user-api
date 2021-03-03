@@ -4,6 +4,7 @@ import com.arc.userapi.Enums.ResponseCode;
 import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
+import com.arc.userapi.pojo.response.UserResponse;
 import com.arc.userapi.services.UserService;
 import com.arc.userapi.utils.ErrorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,9 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public ResponseEntity<BaseResponse> updateUser(@RequestBody UserRequest userRequest,
-                                     @PathVariable("id") Long id){
+                                     @PathVariable("id") Long id) {
         try {
-            BaseResponse response = userService.updateUser(id, userRequest);
+            UserResponse response = userService.updateUser(id, userRequest);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             System.out.println("Error while updating user"+ e.getMessage());

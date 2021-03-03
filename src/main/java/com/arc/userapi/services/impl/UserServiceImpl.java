@@ -5,6 +5,7 @@ import com.arc.userapi.Enums.Status;
 import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
+import com.arc.userapi.pojo.response.UserResponse;
 import com.arc.userapi.repository.UserRepository;
 import com.arc.userapi.services.UserService;
 import org.springframework.beans.BeanUtils;
@@ -40,9 +41,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public BaseResponse saveUser(UserRequest userRequest) {
+    public UserResponse saveUser(UserRequest userRequest) {
         if (repository.findUserByEmail(userRequest.getEmail()) != null)
-            return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");
+            return new UserResponse(userRequest,
+                    new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists."));
 
         User user = new User();
         BeanUtils.copyProperties(userRequest, user);
@@ -50,18 +52,20 @@ public class UserServiceImpl implements UserService {
         user.setDateRegistered(new Date());
         user.setStatus(Status.Registered);
         repository.save(user);
-        return new BaseResponse(ResponseCode.Success);
+        BeanUtils.copyProperties(user, userRequest);
+        return new UserResponse(userRequest, new BaseResponse(ResponseCode.Success));
     }
 
     @Override
-    public BaseResponse updateUser(Long id, UserRequest userRequest) {
+    public UserResponse updateUser(Long id, UserRequest userRequest) {
         User user = findUserById(id);
         if (user == null) {
-            return new BaseResponse(ResponseCode.Not_Found);
+            return new UserResponse(userRequest, new BaseResponse(ResponseCode.Not_Found));
         }
         User emailUser = repository.findUserByEmail(userRequest.getEmail());
         if (emailUser != null && !emailUser.getId().equals(user.getId())) {
-            return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");
+            return new UserResponse(userRequest,
+                    new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists."));
         }
 
         user.setFirstName(userRequest.getFirstName());
@@ -77,19 +81,23 @@ public class UserServiceImpl implements UserService {
             user.setStatus(Status.Verified);
         }
         repository.save(user);
-        return new BaseResponse(ResponseCode.Success);
+        BeanUtils.copyProperties(user, userRequest);
+        return new UserResponse(userRequest, new BaseResponse(ResponseCode.Success));
     }
 
     @Override
-    public BaseResponse deactivateUser(Long id) {
+    public UserResponse deactivateUser(Long id) {
         User user = findUserById(id);
-        if (user == null){
-            return new BaseResponse(ResponseCode.Not_Found);
+        UserRequest userRequest = new UserRequest();
+        if (user == null) {
+            return new UserResponse(userRequest, new BaseResponse(ResponseCode.Not_Found));
         }
 
         user.setStatus(Status.Deactivated);
         user.setDateDeactivated(new Date());
         repository.save(user);
-        return new BaseResponse(ResponseCode.Success);
+        BeanUtils.copyProperties(user, userRequest);
+        userRequest.setDeactivated(true);
+        return new UserResponse(userRequest, new BaseResponse(ResponseCode.Success));
     }
 }
