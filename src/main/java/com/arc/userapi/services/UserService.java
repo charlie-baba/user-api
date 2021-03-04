@@ -3,7 +3,6 @@ package com.arc.userapi.services;
 import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
-import com.arc.userapi.pojo.response.UserResponse;
 
 import java.util.List;
 
@@ -16,9 +15,9 @@ public interface UserService {
 
     List<User> getAllActiveUsers();
 
-    UserResponse saveUser(UserRequest userRequest);
+    BaseResponse saveUser(UserRequest userRequest);
 
-    UserResponse updateUser(Long id, UserRequest userRequest);
+    BaseResponse updateUser(Long id, UserRequest userRequest);
 
-    UserResponse deactivateUser(Long id);
+    BaseResponse deactivateUser(Long id);
 }

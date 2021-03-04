@@ -12,11 +12,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,18 +71,12 @@ public class UserServiceTest {
         //Arrange
         UserRequest request = new UserRequest("Mr", "Charles", "Okonkwo", "charles@email.com",
                 "08065368787", "Password", Role.User, false);
-        User user = new User(1L, "Mr", "Charles", "Okonkwo", "charles@email.com",
-                "08065368787", "Password", Role.User, null, null, false, null, null);
-        doReturn(user).when(mockRepository).save(Matchers.any(User.class));
 
         //Act
-        UserResponse response = service.saveUser(request);
+        BaseResponse response = service.saveUser(request);
 
         //Assert
-        Assertions.assertAll("Should add user to repository",
-                () -> Assert.assertEquals("00", response.getResponseCode()),
-                () -> Assert.assertNotNull(response.getUserRequest()),
-                () -> Assert.assertEquals("Charles", response.getUserRequest().getFirstName()));
+        Assert.assertEquals("00", response.getResponseCode());
     }
 
     @Test
@@ -93,12 +89,10 @@ public class UserServiceTest {
         doReturn(user).when(mockRepository).findUserByEmail("charles@email.com");
 
         //Act
-        UserResponse response = service.saveUser(request);
+        BaseResponse response = service.saveUser(request);
 
         //Assert
-        Assertions.assertAll("User email already exists",
-                () -> Assert.assertEquals("33", response.getResponseCode()),
-                () -> Assert.assertNotNull(response.getUserRequest()));
+        Assert.assertEquals("33", response.getResponseCode());
     }
 
     @Test
@@ -109,17 +103,13 @@ public class UserServiceTest {
                 "08065368787", "Password", Role.User, true);
         User user = new User(id, "Mr", "Charles", "Okonkwo", "charles@email.com","08065368787",
                 "Password", Role.User, null, null, false, null, null);
-        doReturn(user).when(mockRepository).save(Matchers.any(User.class));
         doReturn(user).when(mockRepository).findUserById(id);
 
         //Act
-        UserResponse response = service.updateUser(id, request);
+        BaseResponse response = service.updateUser(id, request);
 
         //Assert
-        Assertions.assertAll("Should update user in repository",
-                () -> Assert.assertEquals("00", response.getResponseCode()),
-                () -> Assert.assertNotNull(response.getUserRequest()),
-                () -> Assert.assertEquals("Charles", response.getUserRequest().getFirstName()));
+        Assert.assertEquals("00", response.getResponseCode());
     }
 
     @Test
@@ -137,12 +127,10 @@ public class UserServiceTest {
         doReturn(user2).when(mockRepository).findUserByEmail(email);
 
         //Act
-        UserResponse response = service.updateUser(id, request);
+        BaseResponse response = service.updateUser(id, request);
 
         //Assert
-        Assertions.assertAll("User email already exists",
-                () -> Assert.assertEquals("33", response.getResponseCode()),
-                () -> Assert.assertNotNull(response.getUserRequest()));
+        Assert.assertEquals("33", response.getResponseCode());
     }
 
     @Test
@@ -154,7 +142,7 @@ public class UserServiceTest {
         doReturn(null).when(mockRepository).findUserById(id);
 
         //Act
-        UserResponse response = service.updateUser(id, request);
+        BaseResponse response = service.updateUser(id, request);
 
         //Assert
         Assert.assertEquals("22", response.getResponseCode());
@@ -169,13 +157,10 @@ public class UserServiceTest {
         doReturn(user).when(mockRepository).findUserById(id);
 
         //Act
-        UserResponse response = service.deactivateUser(id);
+        BaseResponse response = service.deactivateUser(id);
 
         //Assert
-        Assertions.assertAll("Should deactivate user in repository",
-                () -> Assert.assertEquals(response.getResponseCode(), "00"),
-                () -> Assert.assertNotNull(response.getUserRequest()),
-                () -> Assert.assertTrue(response.getUserRequest().isDeactivated()));
+        Assert.assertEquals(response.getResponseCode(), "00");
     }
 
     @Test
@@ -185,7 +170,7 @@ public class UserServiceTest {
         doReturn(null).when(mockRepository).findUserById(id);
 
         //Act
-        UserResponse response = service.deactivateUser(id);
+        BaseResponse response = service.deactivateUser(id);
 
         //Assert
         Assert.assertEquals("22", response.getResponseCode());

@@ -39,9 +39,7 @@ public class UserRequest implements Serializable {
     private String password;
 
     private Role role;
-
     private boolean verified = false;
-
     private boolean deactivated = false;
 
     public UserRequest() {}
