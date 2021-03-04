@@ -3,7 +3,6 @@ package com.arc.userapi.utils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.validation.Errors;
@@ -21,9 +20,6 @@ public class ErrorUtilTest {
 
     @Mock
     Errors mockErrors;
-
-    @InjectMocks
-    ErrorUtil errorUtil;
 
     @Before
     public void setUp() {

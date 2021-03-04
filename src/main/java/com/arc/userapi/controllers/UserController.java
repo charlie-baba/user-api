@@ -26,13 +26,11 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    @ResponseBody
     public List<User> getUsers(){
         return userService.getAllActiveUsers();
     }
 
     @PostMapping("/user")
-    @ResponseBody
     public ResponseEntity<BaseResponse> saveUser(@Valid @RequestBody UserRequest userRequest,
                                                  Errors errors) {
         BaseResponse response;
@@ -51,7 +49,6 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    @ResponseBody
     public ResponseEntity<BaseResponse> updateUser(@RequestBody UserRequest userRequest,
                                      @PathVariable("id") Long id) {
         try {
@@ -63,7 +60,6 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    @ResponseBody
     public ResponseEntity<BaseResponse> deleteUser(@PathVariable("id") Long id){
         try {
             BaseResponse response = userService.deactivateUser(id);

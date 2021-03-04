@@ -30,6 +30,7 @@ import java.util.Map;
 @Configuration
 @EntityScan("com.arc.userapi.entity")
 @EnableTransactionManagement
+@PropertySource("classpath:application.properties")
 @EnableJpaRepositories(basePackages = "com.arc.userapi.repository", transactionManagerRef = "txManage")
 public class DataSourceConfig {
 
