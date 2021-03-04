@@ -1,6 +1,6 @@
 package com.arc.userapi.entity;
 
-import com.arc.userapi.Enums.Status;
+import com.arc.userapi.enums.Status;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

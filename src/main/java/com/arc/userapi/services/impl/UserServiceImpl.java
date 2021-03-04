@@ -1,7 +1,7 @@
 package com.arc.userapi.services.impl;
 
-import com.arc.userapi.Enums.ResponseCode;
-import com.arc.userapi.Enums.Status;
+import com.arc.userapi.enums.ResponseCode;
+import com.arc.userapi.enums.Status;
 import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;

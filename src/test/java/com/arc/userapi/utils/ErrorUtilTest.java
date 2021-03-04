@@ -19,7 +19,7 @@ import static org.mockito.Mockito.doReturn;
 public class ErrorUtilTest {
 
     @Mock
-    Errors mockErrors;
+    private Errors mockErrors;
 
     @Before
     public void setUp() {
