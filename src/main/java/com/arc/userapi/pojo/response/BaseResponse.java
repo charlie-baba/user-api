@@ -1,6 +1,6 @@
 package com.arc.userapi.pojo.response;
 
-import com.arc.userapi.Enums.ResponseCode;
+import com.arc.userapi.enums.ResponseCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

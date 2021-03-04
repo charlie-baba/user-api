@@ -1,4 +1,4 @@
-package com.arc.userapi.Enums;
+package com.arc.userapi.enums;
 
 import lombok.Getter;
 

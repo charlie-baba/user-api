@@ -1,7 +1,7 @@
 package com.arc.userapi.services;
 
-import com.arc.userapi.Enums.Role;
-import com.arc.userapi.Enums.Status;
+import com.arc.userapi.enums.Role;
+import com.arc.userapi.enums.Status;
 import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
@@ -63,7 +63,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void saveUser_shouldBeSuccessful(){
+    public void saveUserShouldBeSuccessful(){
         //Arrange
         UserRequest request = new UserRequest("Mr", "Charles", "Okonkwo", "charles@email.com",
                 "08065368787", "Password", Role.User, false);
@@ -76,7 +76,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void saveUser_emailExists() {
+    public void saveUserEmailExists() {
         //Arrange
         UserRequest request = new UserRequest("Mr", "Charles", "Okonkwo", "charles@email.com",
                 "08065368787", "Password", Role.User, false);
@@ -92,7 +92,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void updateUser_ShouldBeSuccessful(){
+    public void updateUserShouldBeSuccessful(){
         //Arrange
         Long id = 1L;
         UserRequest request = new UserRequest("Mr", "Charles", "Okonkwo", "charles@email.com",
@@ -109,7 +109,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void updateUser_EmailExists() {
+    public void updateUserEmailExists() {
         //Arrange
         Long id = 1L;
         String email = "charles@email.com";
@@ -130,7 +130,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void updateUser_NotFound() {
+    public void updateUserNotFound() {
         //Arrange
         Long id = 1L;
         UserRequest request = new UserRequest("Mr", "Ken", "Miles", "charles@email.com", "08065368787",
@@ -145,7 +145,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void deactivateUser_ShouldBeSuccessful(){
+    public void deactivateUserShouldBeSuccessful(){
         //Arrange
         Long id = 1L;
         User user = new User(id, "Mr.", "Charles", "Okonkwo", "charles@email.com", "+2348065368787", "",
@@ -160,7 +160,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void deactivateUser_NotFound() {
+    public void deactivateUserNotFound() {
         //Arrange
         Long id = 1L;
         doReturn(null).when(mockRepository).findUserById(id);

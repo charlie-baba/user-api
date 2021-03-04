@@ -1,4 +1,4 @@
-package com.arc.userapi.Enums;
+package com.arc.userapi.enums;
 
 /**
  * @author Charles on 27/02/2021

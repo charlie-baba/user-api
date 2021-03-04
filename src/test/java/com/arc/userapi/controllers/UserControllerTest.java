@@ -1,9 +1,9 @@
 package com.arc.userapi.controllers;
 
-import com.arc.userapi.Enums.ResponseCode;
-import com.arc.userapi.Enums.Role;
-import com.arc.userapi.Enums.Status;
 import com.arc.userapi.entity.User;
+import com.arc.userapi.enums.ResponseCode;
+import com.arc.userapi.enums.Role;
+import com.arc.userapi.enums.Status;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
 import com.arc.userapi.services.UserService;
@@ -52,7 +52,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getUsers_ShouldBeSuccessful() throws Exception {
+    public void getUsersShouldBeSuccessful() throws Exception {
         //Arrange
         List<User> users = new ArrayList<>();
         users.add(new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com", "+2348065368787", "",
@@ -68,7 +68,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void saveUser_ShouldBeSuccessful() throws Exception {
+    public void saveUserShouldBeSuccessful() throws Exception {
         //Arrange
         UserRequest request = new UserRequest("Mr", "Charles", "Okonkwo", "charles@email.com",
                 "08065368787", "Password", Role.User, false);
@@ -83,7 +83,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void saveUser_withErrors_ShouldReturnBadRequest() throws Exception {
+    public void saveUserWithErrorsShouldReturnBadRequest() throws Exception {
         //Arrange
         UserRequest request = new UserRequest("Mr", "Charles", "", "charles@",
                 "08065368787", "Password", Role.User, false);
@@ -98,7 +98,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUser_ShouldBeSuccessful() throws Exception {
+    public void updateUserShouldBeSuccessful() throws Exception {
         //Arrange
         Long id = 1L;
         UserRequest request = new UserRequest("Mr", "Charles", "Okonkwo", "charles@email.com",
@@ -114,7 +114,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void deleteUser_shouldBeSuccessful() throws Exception {
+    public void deleteUserShouldBeSuccessful() throws Exception {
         //Arrange
         Long id = 1L;
         BaseResponse successResponse = new BaseResponse(ResponseCode.Success);

@@ -1,7 +1,7 @@
 package com.arc.userapi.entity;
 
-import com.arc.userapi.Enums.Role;
-import com.arc.userapi.Enums.Status;
+import com.arc.userapi.enums.Role;
+import com.arc.userapi.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

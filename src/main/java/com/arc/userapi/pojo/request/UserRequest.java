@@ -1,6 +1,6 @@
 package com.arc.userapi.pojo.request;
 
-import com.arc.userapi.Enums.Role;
+import com.arc.userapi.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
