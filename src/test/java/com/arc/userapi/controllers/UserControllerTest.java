@@ -36,10 +36,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest {
 
     @Mock
-    UserService mockService;
+    private UserService mockService;
 
     @InjectMocks
-    UserController userControllerTest;
+    private UserController userControllerTest;
 
     private MockMvc mockMvc;
     private final Date now = new Date();
