@@ -19,5 +19,7 @@ public interface UserService {
 
     BaseResponse updateUser(Long id, UserRequest userRequest);
 
+    BaseResponse verifyUser(String code);
+
     BaseResponse deactivateUser(Long id);
 }

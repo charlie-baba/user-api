@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setDateRegistered(new Date());
         user.setStatus(Status.Registered);
         repository.save(user);
+        //send activation email
         return new BaseResponse(ResponseCode.Success);
     }
 
@@ -81,6 +82,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public BaseResponse verifyUser(String code) {
+        User user = repository.findUserByVerificationCode(code);
+        if (user == null){
+            return new BaseResponse(ResponseCode.Not_Found);
+        }
+
+        user.setStatus(Status.Verified);
+        user.setDateVerified(new Date());
+        repository.save(user);
+        //send verification email
+        return new BaseResponse(ResponseCode.Success);
+    }
+
+    @Override
     public BaseResponse deactivateUser(Long id) {
         User user = findUserById(id);
         if (user == null) {
@@ -90,6 +105,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Status.Deactivated);
         user.setDateDeactivated(new Date());
         repository.save(user);
+        //send deactivation email
         return new BaseResponse(ResponseCode.Success);
     }
 }

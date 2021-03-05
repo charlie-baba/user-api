@@ -59,6 +59,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/verify/{code}")
+    public ResponseEntity<BaseResponse> verifyUser(@PathVariable("code") String code) {
+        try {
+            BaseResponse response = userService.verifyUser(code);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new BaseResponse(ResponseCode.Internal_Server_Error), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/user/{id}")
     public ResponseEntity<BaseResponse> deleteUser(@PathVariable("id") Long id){
         try {
