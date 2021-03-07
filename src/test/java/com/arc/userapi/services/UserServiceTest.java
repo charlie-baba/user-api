@@ -31,6 +31,9 @@ public class UserServiceTest {
     private UserRepository mockRepository;
 
     @Mock
+    private EmailService emailService;
+
+    @Mock
     private PasswordEncoder mockPasswordEncoder;
 
     @InjectMocks
