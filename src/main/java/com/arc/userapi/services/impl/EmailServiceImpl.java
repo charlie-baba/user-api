@@ -36,8 +36,8 @@ public class EmailServiceImpl implements EmailService {
             host += (port != 0) ? ":"+ port : "";
 
             String url = host + "/api/verify/" + user.getVerificationCode();
-            String body = "Hi " + user.getFirstName() + ", \n\n Kindly use the link below to verify your account. \n" +
-                    "<a href=\"http://" +url + "\"> Activation Link </a>  \n\n Cheers!";
+            String body = "Hi " + user.getFirstName() + ", <br/><br/> Kindly use the link below to verify your account. <br/>" +
+                    "<a href=\"http://" +url + "\"> Activation Link </a>  <br/><br/> Cheers!";
             return emailUtil.sendMail(user.getEmail(), subject, body);
         } catch (Exception e){
             return new BaseResponse(ResponseCode.Internal_Server_Error);
@@ -48,7 +48,7 @@ public class EmailServiceImpl implements EmailService {
     public BaseResponse sendVerificationConfirmationEmail(User user) {
         String subject = "Account Verified";
         try {
-            String body = "Hi " + user.getFirstName() + ", \n\n Your account has been verified! \n\n Cheers!";
+            String body = "Hi " + user.getFirstName() + ", <br/><br/> Your account has been verified! <br/><br/> Cheers!";
             return emailUtil.sendMail(user.getEmail(), subject, body);
         } catch (Exception e){
             return new BaseResponse(ResponseCode.Internal_Server_Error);
@@ -59,7 +59,7 @@ public class EmailServiceImpl implements EmailService {
     public BaseResponse sendDeactivationEmail(User user) {
         String subject = "Account Deactivation";
         try {
-            String body = "Hi " + user.getFirstName() + ", \n\n Your account has been deactivated. \n\n Regards.";
+            String body = "Hi " + user.getFirstName() + ", <br/><br/> Your account has been deactivated. <br/><br/> Regards.";
             return emailUtil.sendMail(user.getEmail(), subject, body);
         } catch (Exception e){
             return new BaseResponse(ResponseCode.Internal_Server_Error);
