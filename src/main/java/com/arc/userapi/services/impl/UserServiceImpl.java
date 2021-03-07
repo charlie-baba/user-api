@@ -46,8 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BaseResponse saveUser(UserRequest userRequest) {
-        if (repository.findUserByEmail(userRequest.getEmail()) != null)
+        if (repository.findUserByEmail(userRequest.getEmail()) != null) {
             return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");
+        }
 
         User user = new User();
         BeanUtils.copyProperties(userRequest, user);
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return new BaseResponse(ResponseCode.Not_Found);
         }
+
         User emailUser = repository.findUserByEmail(userRequest.getEmail());
         if (emailUser != null && !emailUser.getId().equals(user.getId())) {
             return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");

@@ -27,8 +27,6 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private ServletWebServerApplicationContext webServerAppCtxt;
 
-    private final String verifyUrl = "/api/verify/";
-
     @Override
     public BaseResponse sendAccountVerificationEmail(User user) {
         String subject = "New Account Activation";
@@ -37,9 +35,9 @@ public class EmailServiceImpl implements EmailService {
             int port = webServerAppCtxt.getWebServer().getPort();
             host += (port != 0) ? ":"+ port : "";
 
-            String url = host + verifyUrl + user.getVerificationCode();
-            String body = "Hi " + user.getFirstName() + ", \n Kindly use the link below to verify your account. \n" +
-                    url + "\n Cheers!";
+            String url = host + "/api/verify/" + user.getVerificationCode();
+            String body = "Hi " + user.getFirstName() + ", \n\n Kindly use the link below to verify your account. \n" +
+                    "<a href=\"http://" +url + "\"> Activation Link </a>  \n\n Cheers!";
             return emailUtil.sendMail(user.getEmail(), subject, body);
         } catch (Exception e){
             return new BaseResponse(ResponseCode.Internal_Server_Error);
@@ -50,9 +48,7 @@ public class EmailServiceImpl implements EmailService {
     public BaseResponse sendVerificationConfirmationEmail(User user) {
         String subject = "Account Verified";
         try {
-            String body = "Hi " + user.getFirstName() +
-                    ", \n Your account has been verified! \n" +
-                    "\n Cheers!";
+            String body = "Hi " + user.getFirstName() + ", \n\n Your account has been verified! \n\n Cheers!";
             return emailUtil.sendMail(user.getEmail(), subject, body);
         } catch (Exception e){
             return new BaseResponse(ResponseCode.Internal_Server_Error);
@@ -63,9 +59,7 @@ public class EmailServiceImpl implements EmailService {
     public BaseResponse sendDeactivationEmail(User user) {
         String subject = "Account Deactivation";
         try {
-            String body = "Hi " + user.getFirstName() +
-                    ", \n Your account has been deactivated. \n" +
-                    "\n Regards.";
+            String body = "Hi " + user.getFirstName() + ", \n\n Your account has been deactivated. \n\n Regards.";
             return emailUtil.sendMail(user.getEmail(), subject, body);
         } catch (Exception e){
             return new BaseResponse(ResponseCode.Internal_Server_Error);
