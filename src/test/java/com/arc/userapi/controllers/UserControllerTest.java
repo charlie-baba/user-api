@@ -114,6 +114,18 @@ public class UserControllerTest {
     }
 
     @Test
+    public void verifyUserShouldBeSuccessful() throws Exception {
+        //Arrange
+        String code = "123";
+        BaseResponse successResponse = new BaseResponse(ResponseCode.Success);
+        doReturn(successResponse).when(mockService).verifyUser(code);
+
+        //Act //Assert
+        this.mockMvc.perform(delete("/api/user/{code}", code))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void deleteUserShouldBeSuccessful() throws Exception {
         //Arrange
         Long id = 1L;

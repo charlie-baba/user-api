@@ -145,6 +145,34 @@ public class UserServiceTest {
     }
 
     @Test
+    public void verifyUserShouldBeSuccessful(){
+        //Arrange
+        String code = "123";
+        User user = new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com", "+2348065368787", "",
+                Role.User, now, now, false, null, Status.Verified);
+        doReturn(user).when(mockRepository).findUserByVerificationCode(code);
+
+        //Act
+        BaseResponse response = service.verifyUser(code);
+
+        //Assert
+        Assert.assertEquals(response.getResponseCode(), "00");
+    }
+
+    @Test
+    public void verifyUserNotFound() {
+        //Arrange
+        String code = "123";
+        doReturn(null).when(mockRepository).findUserByVerificationCode(code);
+
+        //Act
+        BaseResponse response = service.verifyUser(code);
+
+        //Assert
+        Assert.assertEquals("22", response.getResponseCode());
+    }
+
+    @Test
     public void deactivateUserShouldBeSuccessful(){
         //Arrange
         Long id = 1L;
