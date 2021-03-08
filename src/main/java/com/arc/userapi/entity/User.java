@@ -51,6 +51,9 @@ public class User extends BaseEntity {
     @Column(name = "is_verified")
     private boolean verified = false;
 
+    @Column(name = "verification_code")
+    private String verificationCode;
+
     public User() { }
 
     public User(Long id, String title, String firstName, String lastName, String email, String mobile, String password,

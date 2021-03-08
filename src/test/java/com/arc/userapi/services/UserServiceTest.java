@@ -31,6 +31,9 @@ public class UserServiceTest {
     private UserRepository mockRepository;
 
     @Mock
+    private EmailService emailService;
+
+    @Mock
     private PasswordEncoder mockPasswordEncoder;
 
     @InjectMocks
@@ -47,10 +50,10 @@ public class UserServiceTest {
     public void getAllActiveUsers(){
         //Arrange
         List<User> users = new ArrayList<>();
-        users.add(new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com", "+2348065368787", "",
-                Role.User, now, now, true, null, Status.Verified));
-        users.add(new User(2L, "Mrs.", "Stacy", "Krimlin", "stacy@email.com", "+2348065368989", "",
-                Role.Admin, now, now, true, null, Status.Verified));
+        users.add(new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com",
+                "+2348065368787", "", Role.User, now, now, true, null, Status.Verified));
+        users.add(new User(2L, "Mrs.", "Stacy", "Krimlin", "stacy@email.com",
+                "+2348065368989", "", Role.Admin, now, now, true, null, Status.Verified));
         doReturn(users).when(mockRepository).findAllActiveUsers();
 
         //Act
@@ -80,8 +83,8 @@ public class UserServiceTest {
         //Arrange
         UserRequest request = new UserRequest("Mr", "Charles", "Okonkwo", "charles@email.com",
                 "08065368787", "Password", Role.User, false);
-        User user = new User(1L, "Mr", "Charles", "Okonkwo", "charles@email.com",
-                "08065368787", "Password", Role.User, null, null, false, null, null);
+        User user = new User(1L, "Mr", "Charles", "Okonkwo", "charles@email.com", "08065368787",
+                "Password", Role.User, null, null, false, null, null);
         doReturn(user).when(mockRepository).findUserByEmail("charles@email.com");
 
         //Act
@@ -145,11 +148,39 @@ public class UserServiceTest {
     }
 
     @Test
+    public void verifyUserShouldBeSuccessful(){
+        //Arrange
+        String code = "123";
+        User user = new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com",
+                "+2348065368787", "", Role.User, now, now, false, null, Status.Verified);
+        doReturn(user).when(mockRepository).findUserByVerificationCode(code);
+
+        //Act
+        BaseResponse response = service.verifyUser(code);
+
+        //Assert
+        Assert.assertEquals(response.getResponseCode(), "00");
+    }
+
+    @Test
+    public void verifyUserNotFound() {
+        //Arrange
+        String code = "123";
+        doReturn(null).when(mockRepository).findUserByVerificationCode(code);
+
+        //Act
+        BaseResponse response = service.verifyUser(code);
+
+        //Assert
+        Assert.assertEquals("22", response.getResponseCode());
+    }
+
+    @Test
     public void deactivateUserShouldBeSuccessful(){
         //Arrange
         Long id = 1L;
-        User user = new User(id, "Mr.", "Charles", "Okonkwo", "charles@email.com", "+2348065368787", "",
-                Role.User, now, now, true, null, Status.Verified);
+        User user = new User(id, "Mr.", "Charles", "Okonkwo", "charles@email.com",
+                "+2348065368787", "", Role.User, now, now, true, null, Status.Verified);
         doReturn(user).when(mockRepository).findUserById(id);
 
         //Act

@@ -38,7 +38,7 @@ public class DataSourceConfig {
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setPersistenceUnitName("astroPU");
+        em.setPersistenceUnitName("userPU");
         em.setPackagesToScan(new String[]{"com.arc.userapi.entity"});
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         ((HibernateJpaVendorAdapter) vendorAdapter).setDatabasePlatform(env.getProperty("hibernate.dialect"));
