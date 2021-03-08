@@ -80,11 +80,6 @@ public class UserServiceImpl implements UserService {
         user.setRole(userRequest.getRole());
         if (userRequest.getPassword() != null && !userRequest.getPassword().isBlank())
             user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        if (!user.isVerified() && userRequest.isVerified()){
-            user.setVerified(userRequest.isVerified());
-            user.setDateVerified(new Date());
-            user.setStatus(Status.Verified);
-        }
         repository.save(user);
         return new BaseResponse(ResponseCode.Success);
     }

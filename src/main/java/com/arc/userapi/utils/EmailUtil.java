@@ -38,13 +38,12 @@ public class EmailUtil {
             props.put("mail.smtp.host", host);
             props.put("mail.smtp.port", port);
 
-            Authenticator auth = new Authenticator() {
+            Session session = Session.getDefaultInstance(props, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(username, password);
                 }
-            };
-            Session session = Session.getDefaultInstance(props, auth);
+            });
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
