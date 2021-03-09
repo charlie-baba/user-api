@@ -8,6 +8,7 @@ import com.arc.userapi.pojo.response.BaseResponse;
 import com.arc.userapi.repository.UserRepository;
 import com.arc.userapi.services.EmailService;
 import com.arc.userapi.services.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userRequest.getEmail());
         user.setMobile(userRequest.getMobile());
         user.setRole(userRequest.getRole());
-        if (userRequest.getPassword() != null && !userRequest.getPassword().isBlank())
+        if (StringUtils.isNotBlank( userRequest.getPassword()))
             user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         repository.save(user);
         return new BaseResponse(ResponseCode.Success);
