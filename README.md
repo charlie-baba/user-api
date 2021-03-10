@@ -1,4 +1,7 @@
 # user-api
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/84561b4ccfd9445d98dc3107a22bd6dc)](https://app.codacy.com/gh/charlie-baba/user-api?utm_source=github.com&utm_medium=referral&utm_content=charlie-baba/user-api&utm_campaign=Badge_Grade_Settings)
+
 This User-API article will walk you through building an application that allows you to create a user, email user to verify account, verifies the account and can deactivate the user without deleting the record.
 
 For the purpose of demo, the user-api has been deployed to
