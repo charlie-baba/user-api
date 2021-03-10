@@ -74,6 +74,7 @@ public class UserServiceImpl implements UserService {
             return new BaseResponse(ResponseCode.Bad_Request.getCode(), "A user with this email already exists.");
         }
 
+        user.setTitle(userRequest.getTitle());
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
         user.setEmail(userRequest.getEmail());
