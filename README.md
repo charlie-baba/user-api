@@ -1,15 +1,19 @@
 # user-api
 This User-API article will walk you through building an application that allows you to create a user, email user to verify account, verifies the account and can deactivate the user without deleting the record.
 
-Follow each step to build and deploy the app, or skip to . 
+For the purpose of demo, the user-api has been deployed to
+
+    https://arc-user-api.herokuapp.com
+You can jump to 'Email Configuration' section to continue without setting up the application.
 
 ## Prerequisites
 
+Follow each step to build and deploy the app, or skip to.
 * Basic Java knowledge, including an installed version of the JVM and Maven.
 * Basic Git knowledge, including an installed version of Git.
 * Postgres server installed on your device.
 
-### How To use User-API?
+### How To run User-API?
 
 Running the app from and IDE like intellij or Eclipse
 
@@ -18,9 +22,8 @@ Running the app from and IDE like intellij or Eclipse
     - make sure to resolve all meaven dependencies (already included in the project).
     - run the UserApiApplicaiton class
 
-    INFO: Initializing ProtocolHandler ["http://localhost:8080"]
+    INFO: Initializing ProtocolHandler ["http://localhost:8080"] 
     - The default port is 8080, it can be modified from the application.properties file (key = "server.port") 
-
 
 Alternatively,
 To build your application simply run:
@@ -40,7 +43,7 @@ The database schema would be generated once you run the app.
 
 ## Email Configuration
 
-The email properties are in the applicaiton.properties file (section: Email Config)
+The email properties are in the application.properties file (section: Email Config)
 If you use a gmail account just update the "email.username" and "email.password" properties
 If you use an alternate email provide also update the "email.host", and "email.port" tls properties.
 The email configuration is for the source email when sending out activation and verification emails.
@@ -49,7 +52,13 @@ The email is sent to the actual email used in registering the users.
 
 ## Swagger
 
-The swagger endpoint is "http://localhost:8080/v2/api-docs", assuming that your port is 8080.
+#### Html Docs
+The swagger endpoint is "http://[localhost:8080]/swagger-ui/index.html", assuming that your port is 8080.
+or "https://arc-user-api.herokuapp.com/swagger-ui/index.html" for the demo project
+
+#### JSON Docs
+The swagger endpoint is "http://[localhost:8080]/v2/api-docs", or "https://arc-user-api.herokuapp.com/v2/api-docs" for the demo project
+
 
 ## User endpoints
 
@@ -57,14 +66,19 @@ The user endpoints are listed below
 
 Fetch Users
 
-    GET | http://localhost:[8080]/api//users
+    GET | https://arc-user-api.herokuapp.com/api/users
+    GET | http://localhost:[8080]/api/users
 Create user
 
+    POST | https://arc-user-api.herokuapp.com/api/user
     POST | http://localhost:[8080]/api/user
+
 Update user
 
+    PUT | https://arc-user-api.herokuapp.com/api/user/3
     PUT | http://localhost:[8080]/api/user/3
 
 Delete user
 
+    DELETE | https://arc-user-api.herokuapp.com/api/user/3
     DELETE | http://localhost:[8080]/api/user/3
