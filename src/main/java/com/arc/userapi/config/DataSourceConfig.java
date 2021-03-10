@@ -33,7 +33,7 @@ import java.util.Map;
 public class DataSourceConfig {
 
     @Autowired
-    Environment env;
+    private Environment env;
 
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
