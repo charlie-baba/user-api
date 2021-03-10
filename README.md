@@ -1,4 +1,5 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/83e1ad5f624e4ea09df5b647909c6662)](https://www.codacy.com/gh/charlie-baba/user-api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=charlie-baba/user-api&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/83e1ad5f624e4ea09df5b647909c6662)](https://www.codacy.com/gh/charlie-baba/user-api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=charlie-baba/user-api&amp;utm_campaign=Badge_Coverage)
 
 # user-api
 
