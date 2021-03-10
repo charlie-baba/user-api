@@ -1,5 +1,5 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/83e1ad5f624e4ea09df5b647909c6662)](https://www.codacy.com/gh/charlie-baba/user-api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=charlie-baba/user-api&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/84561b4ccfd9445d98dc3107a22bd6dc)](https://www.codacy.com/gh/charlie-baba/user-api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=charlie-baba/user-api&amp;utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/83e1ad5f624e4ea09df5b647909c6662)](https://www.codacy.com/gh/charlie-baba/user-api/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=charlie-baba/user-api&amp;utm_campaign=Badge_Coverage)
 
 # user-api
 This User-API article will walk you through building an application that allows you to create a user, email user to verify account, verifies the account and can deactivate the user without deleting the record.
