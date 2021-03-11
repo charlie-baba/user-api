@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Charles on 28/02/2021
@@ -74,6 +75,8 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals("00", response.getResponseCode());
+        verify(mockRepository).save(any(User.class));
+        verify(emailService).sendAccountVerificationEmail(any(User.class));
     }
 
     @Test
@@ -90,6 +93,8 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals("33", response.getResponseCode());
+        verify(mockRepository, never()).save(any(User.class));
+        verify(emailService, never()).sendAccountVerificationEmail(any(User.class));
     }
 
     @Test
@@ -107,6 +112,7 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals("00", response.getResponseCode());
+        verify(mockRepository).save(any(User.class));
     }
 
     @Test
@@ -128,6 +134,7 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals("33", response.getResponseCode());
+        verify(mockRepository, never()).save(any(User.class));
     }
 
     @Test
@@ -143,6 +150,7 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals("22", response.getResponseCode());
+        verify(mockRepository, never()).save(any(User.class));
     }
 
     @Test
@@ -158,6 +166,8 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals(response.getResponseCode(), "00");
+        verify(mockRepository).save(any(User.class));
+        verify(emailService).sendVerificationConfirmationEmail(any(User.class));
     }
 
     @Test
@@ -171,6 +181,8 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals("22", response.getResponseCode());
+        verify(mockRepository, never()).save(any(User.class));
+        verify(emailService, never()).sendVerificationConfirmationEmail(any(User.class));
     }
 
     @Test
@@ -186,6 +198,8 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals(response.getResponseCode(), "00");
+        verify(mockRepository).save(any(User.class));
+        verify(emailService).sendDeactivationEmail(any(User.class));
     }
 
     @Test
@@ -199,5 +213,7 @@ public class UserServiceTest {
 
         //Assert
         Assert.assertEquals("22", response.getResponseCode());
+        verify(mockRepository, never()).save(any(User.class));
+        verify(emailService, never()).sendDeactivationEmail(any(User.class));
     }
 }
