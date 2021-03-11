@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Status.Registered);
         user.setVerificationCode(UUID.randomUUID().toString());
         repository.save(user);
-        BaseResponse response = emailService.sendAccountVerificationEmail(user);
+        emailService.sendAccountVerificationEmail(user);
         return new BaseResponse(ResponseCode.Success);
     }
 
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
         user.setDateVerified(new Date());
         user.setVerified(true);
         repository.save(user);
-        BaseResponse response = emailService.sendVerificationConfirmationEmail(user);
+        emailService.sendVerificationConfirmationEmail(user);
         return new BaseResponse(ResponseCode.Success);
     }
 
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Status.Deactivated);
         user.setDateDeactivated(new Date());
         repository.save(user);
-        BaseResponse response = emailService.sendDeactivationEmail(user);
+        emailService.sendDeactivationEmail(user);
         return new BaseResponse(ResponseCode.Success);
     }
 }
