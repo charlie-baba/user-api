@@ -112,27 +112,28 @@
                 <version>0.8.6</version>
                 <executions>
                     <execution>
+                        <id>pre-unit-test</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                    <execution>
+                    <!--<execution>
                         <id>report</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
-                    </execution>
+                    </execution>-->
                     <execution>
                         <id>post-unit-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
-                        <configuration>
+                        <!--<configuration>
                             <dataFile>target/jacoco.exec</dataFile>
                             <outputDirectory>target/jacoco</outputDirectory>
-                        </configuration>
+                        </configuration>-->
                     </execution>
                     <!--<execution>
                         <id>jacoco-check</id>
