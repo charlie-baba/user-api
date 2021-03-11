@@ -4,23 +4,26 @@ import com.arc.userapi.pojo.response.BaseResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.support.membermodification.MemberModifier;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
-import javax.mail.internet.MimeMessage;
 
-import static org.hamcrest.Matchers.any;
-import static org.mockito.Mockito.mockStatic;
+import static org.powermock.api.support.membermodification.MemberModifier.suppress;
 
 /**
  * @author Charles on 04/03/2021
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(javax.mail.Transport.class)
 public class EmailUtilTest {
 
     @Mock
@@ -39,6 +42,7 @@ public class EmailUtilTest {
         ReflectionTestUtils.setField(emailUtil, "port", 8080);
         ReflectionTestUtils.setField(emailUtil, "username", "test@email.com");
         ReflectionTestUtils.setField(emailUtil, "password", "Password123");
+        suppress(MemberModifier.method(Transport.class, "send", Message.class));
     }
 
     @Test
@@ -47,14 +51,11 @@ public class EmailUtilTest {
         String subject = "Subject";
         String body = "Message1";
         String email = "charles@email.com";
-        //mockStatic(Transport.class);
-        //Mockito.doNothing().when(Transport.send(any(Message.class)));
 
         //Act
-        //BaseResponse response = emailUtil.sendMail(email, subject, body);
+        BaseResponse response = emailUtil.sendMail(email, subject, body);
 
         //Assert
-        //Assert.assertEquals("00", response.getResponseCode());
-        Assert.assertTrue(true);
+        Assert.assertEquals("00", response.getResponseCode());
     }
 }

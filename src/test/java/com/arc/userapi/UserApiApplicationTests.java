@@ -1,13 +1,11 @@
 package com.arc.userapi;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
 class UserApiApplicationTests {
 
-    /*@Test
-    void contextLoads() {
-    }*/
-
+    @Test
+    public void main() {
+        UserApiApplication.main(new String[] {});
+    }
 }
