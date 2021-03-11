@@ -13,11 +13,11 @@ You can jump to 'Email Configuration' section to continue without setting up the
 ## Prerequisites
 
 Follow each step to build and deploy the app, or skip to.
-* Basic Java knowledge, including an installed version of the JVM and Maven.
-* Basic Git knowledge, including an installed version of Git.
-* Postgres server installed on your device.
+    * Basic Java knowledge, including an installed version of the JVM and Maven.
+    * Basic Git knowledge, including an installed version of Git.
+    * Postgres server installed on your device.
 
-### How To run User-API?
+### How To run User-API
 
 Running the app from and IDE like intellij or Eclipse
 
@@ -53,16 +53,14 @@ If you use an alternate email provide also update the "email.host", and "email.p
 The email configuration is for the source email when sending out activation and verification emails.
 The email is sent to the actual email used in registering the users.
 
-
 ## Swagger
 
-#### Html Docs
-The swagger endpoint is "http://[localhost:8080]/swagger-ui/index.html", assuming that your port is 8080.
+### Html Docs
+The swagger endpoint is "http://localhost:8080/swagger-ui/index.html", assuming that your port is 8080.
 or "https://arc-user-api.herokuapp.com/swagger-ui/index.html" for the demo project
 
-#### JSON Docs
-The swagger endpoint is "http://[localhost:8080]/v2/api-docs", or "https://arc-user-api.herokuapp.com/v2/api-docs" for the demo project
-
+### JSON Docs
+The swagger endpoint is "http://localhost:8080/v2/api-docs", or "https://arc-user-api.herokuapp.com/v2/api-docs" for the demo project
 
 ## User endpoints
 
