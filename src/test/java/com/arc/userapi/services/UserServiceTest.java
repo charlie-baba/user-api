@@ -1,8 +1,8 @@
 package com.arc.userapi.services;
 
+import com.arc.userapi.entity.User;
 import com.arc.userapi.enums.Role;
 import com.arc.userapi.enums.Status;
-import com.arc.userapi.entity.User;
 import com.arc.userapi.pojo.request.UserRequest;
 import com.arc.userapi.pojo.response.BaseResponse;
 import com.arc.userapi.repository.UserRepository;
@@ -10,7 +10,6 @@ import com.arc.userapi.services.impl.UserServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -60,9 +59,8 @@ public class UserServiceTest {
         List<User> fetchedList = service.getAllActiveUsers();
 
         //Assert
-        Assertions.assertAll(
-                () -> Assert.assertEquals(2, fetchedList.size()),
-                () -> Assert.assertNull(fetchedList.get(0).getPassword()));
+        Assert.assertEquals(2, fetchedList.size());
+        Assert.assertNull(fetchedList.get(0).getPassword());
     }
 
     @Test
