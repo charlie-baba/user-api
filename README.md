@@ -68,8 +68,8 @@ The user endpoints are listed below
 
 Fetch Users
 
-    GET | https://arc-user-api.herokuapp.com/api/users
-    GET | http://localhost:[8080]/api/users
+    GET | https://arc-user-api.herokuapp.com/api/users/0/15
+    GET | http://localhost:[8080]/api/users/{page}/{size}
 Create user
 
     POST | https://arc-user-api.herokuapp.com/api/user
