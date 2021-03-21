@@ -52,7 +52,7 @@ public class UserServiceTest {
     @Test
     public void getAllActiveUsers(){
         //Arrange
-        int page = 1;
+        int page = 0;
         int size = 15;
         List<User> users = new ArrayList<>();
         users.add(new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com",

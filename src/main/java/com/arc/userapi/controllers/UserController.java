@@ -32,7 +32,6 @@ public class UserController {
     @GetMapping("/users/{page}/{size}")
     public List<User> getUsers(@PathVariable("page") int page,
                                @PathVariable("size") int size){
-        page = page == 0 ? 1 : page;
         size = size == 0 ? pageSize : size;
         return userService.getAllActiveUsers(page, size);
     }

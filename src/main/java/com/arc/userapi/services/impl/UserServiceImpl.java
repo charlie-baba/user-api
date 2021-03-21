@@ -46,7 +46,8 @@ public class UserServiceImpl implements UserService {
         Pageable pageable = PageRequest.of(page, size);
         Page<User> userPage = repository.findAllActiveUsers(pageable);
         userPage.forEach(x -> x.setPassword(null));
-        return userPage.getContent();
+        List<User> users = userPage.getContent();
+        return users;
     }
 
     @Override
