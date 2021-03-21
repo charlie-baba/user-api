@@ -13,6 +13,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -49,15 +52,18 @@ public class UserServiceTest {
     @Test
     public void getAllActiveUsers(){
         //Arrange
+        int page = 0;
+        int size = 15;
         List<User> users = new ArrayList<>();
         users.add(new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com",
-                "+2348065368787", "", Role.User, now, now, true, null, Status.Verified));
+                "+2348065368787", "pswd", Role.User, now, now, true, null, Status.Verified));
         users.add(new User(2L, "Mrs.", "Stacy", "Krimlin", "stacy@email.com",
-                "+2348065368989", "", Role.Admin, now, now, true, null, Status.Verified));
-        doReturn(users).when(mockRepository).findAllActiveUsers();
+                "+2348065368989", "pswd", Role.Admin, now, now, true, null, Status.Verified));
+        Page<User> pagedResponse = new PageImpl(users);
+        doReturn(pagedResponse).when(mockRepository).findAllActiveUsers(PageRequest.of(page, size));
 
         //Act
-        List<User> fetchedList = service.getAllActiveUsers();
+        List<User> fetchedList = service.getAllActiveUsers(page, size);
 
         //Assert
         Assert.assertEquals(2, fetchedList.size());

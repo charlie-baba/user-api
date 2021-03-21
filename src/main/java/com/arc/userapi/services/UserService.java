@@ -13,7 +13,7 @@ public interface UserService {
 
     User findUserById(Long id);
 
-    List<User> getAllActiveUsers();
+    List<User> getAllActiveUsers(int page, int size);
 
     BaseResponse saveUser(UserRequest userRequest);
 
