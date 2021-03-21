@@ -11,6 +11,9 @@ import com.arc.userapi.services.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +42,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllActiveUsers() {
-        List<User> users = repository.findAllActiveUsers();
-        users.forEach(u -> u.setPassword(null));
-        return users;
+    public List<User> getAllActiveUsers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> userPage = repository.findAllActiveUsers(pageable);
+        userPage.forEach(x -> x.setPassword(null));
+        return userPage.getContent();
     }
 
     @Override

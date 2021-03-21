@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -25,10 +26,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -51,21 +49,24 @@ public class UserControllerTest {
     @Before
     public void setup() {
         MockitoAnnotations.openMocks(this);
+        ReflectionTestUtils.setField(userControllerTest, "pageSize", 15);
         this.mockMvc = MockMvcBuilders.standaloneSetup(userControllerTest).build();
     }
 
     @Test
     public void getUsersShouldBeSuccessful() throws Exception {
         //Arrange
+        int page = 1;
+        int size = 15;
         List<User> users = new ArrayList<>();
         users.add(new User(1L, "Mr.", "Charles", "Okonkwo", "charles@email.com", "+2348065368787", "",
                 Role.User, now, now, true, null, Status.Verified));
         users.add(new User(2L, "Mrs.", "Stacy", "Krimlin", "stacy@email.com", "+2348065368989", "",
                 Role.Admin, now, now, true, null, Status.Verified));
-        doReturn(users).when(mockService).getAllActiveUsers();
+        doReturn(users).when(mockService).getAllActiveUsers(page, size);
 
         //Act //Assert
-        this.mockMvc.perform(get("/api/users"))
+        this.mockMvc.perform(get("/api/users/{page}/{size}", page, size))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(2)));
     }

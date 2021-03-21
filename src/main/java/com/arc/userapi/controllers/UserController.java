@@ -7,6 +7,7 @@ import com.arc.userapi.pojo.response.BaseResponse;
 import com.arc.userapi.services.UserService;
 import com.arc.userapi.utils.ErrorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -25,9 +26,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
-    public List<User> getUsers(){
-        return userService.getAllActiveUsers();
+    @Value("${page.size}")
+    private int pageSize;
+
+    @GetMapping("/users/{page}/{size}")
+    public List<User> getUsers(@PathVariable("page") int page,
+                               @PathVariable("size") int size){
+        page = page == 0 ? 1 : page;
+        size = size == 0 ? pageSize : size;
+        return userService.getAllActiveUsers(page, size);
     }
 
     @PostMapping("/user")
